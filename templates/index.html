@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Jasa Service</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Jasa Service Profesional</h1>
+    <nav>
+      <ul>
+        <li><a href="#sofa">Sofa</a></li>
+        <li><a href="#kursi">Kursi</a></li>
+        <li><a href="#barbershop">Barbershop</a></li>
+        <li><a href="#kitchen">Kitchen</a></li>
+        <li><a href="#pesan">Pesan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% for kategori, gambar_list in katalog.items() %}
+      <section id="{{ kategori }}">
+        <h2>{{ kategori.capitalize() }}</h2>
+        <div class="gallery">
+          {% for g in gambar_list %}
+            <img src="{{ url_for('static', filename='uploaded/' + g) }}" alt="{{ g }}">
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+
+    <section id="pesan">
+      <h2>Formulir Pemesanan</h2>
+      <form method="POST" action="/pesan">
+        <input type="text" name="nama" placeholder="Nama Anda" required>
+        <select name="layanan">
+          <option>Sofa</option>
+          <option>Kursi</option>
+          <option>Barbershop</option>
+          <option>Kitchen</option>
+        </select>
+        <textarea name="pesan" placeholder="Pesan Anda" required></textarea>
+        <button type="submit">Kirim</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Jasa Service</p>
+  </footer>
+</body>
+</html>
